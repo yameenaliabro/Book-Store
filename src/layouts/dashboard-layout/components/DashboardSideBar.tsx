@@ -14,6 +14,10 @@ function DashboardSideBar() {
         {
             label: <Link href="/dashboard/customer">Customer</Link>,
             key: "dashboard/customer"
+        },
+        {
+            label: <Link href="/dashboard/products">Products</Link>,
+            key: "dashboard/products"
         }
 
     ]), [])
