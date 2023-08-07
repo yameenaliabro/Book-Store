@@ -1,7 +1,7 @@
 import { Splash } from "@src/compoenents"
 import { firebaseAuth } from "@src/services"
 import { AuthContext, LoginProps, SignUpProps } from "@src/types/auth"
-import { removeaxiostoken, setaxiostoken } from "@src/utils/axios"
+import { removeAxiosToken, setaxiostoken } from "@src/utils/axios"
 import {
     createUserWithEmailAndPassword,
     updateProfile,
@@ -64,7 +64,7 @@ function AuthProvider({ children }: { children: ReactNode }) {
             }
             else {
                 settoken(null)
-                removeaxiostoken()
+                removeAxiosToken()
             }
             setloading(false)
 

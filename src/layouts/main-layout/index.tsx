@@ -14,7 +14,7 @@ function MainLayout(props: MainLayoutPropos) {
     return (
         <Layout className="h-full">
             <MainTopBar />
-            <Content>
+            <Content className="h-full">
                 {children}
             </Content>
         </Layout>

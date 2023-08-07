@@ -16,7 +16,7 @@ const DashboardLayout = (props: DashboardLayoutProps) => {
             <DashboardTopBar />
             <Layout>
                 <DashboardSideBar />
-                <Content>
+                <Content className='overflow-y-auto'>
                     {children}
                 </Content>
             </Layout>

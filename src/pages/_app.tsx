@@ -4,7 +4,8 @@ import type { AppProps } from 'next/app'
 import { useRouter } from 'next/router'
 import { ConfigProvider } from "antd"
 import { AuthProvider } from '@src/context'
-
+import { ReactQueryClient } from '@src/services'
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 
 function MyApp({ Component, pageProps }: AppProps) {
   const { asPath } = useRouter()
@@ -16,6 +17,7 @@ function MyApp({ Component, pageProps }: AppProps) {
       </DashboardLayout>
     )
   }
+
   return (
     <MainLayout>
       <Component {...pageProps} />
@@ -25,10 +27,14 @@ function MyApp({ Component, pageProps }: AppProps) {
 
 export default function App(props: AppProps) {
   return (
-    <ConfigProvider componentSize='large'>
-      <AuthProvider>
-        <MyApp {...props} />
-      </AuthProvider>
+    <ConfigProvider componentSize='large' >
+      <ReactQueryClient>
+        <AuthProvider>
+          <ReactQueryDevtools />
+          <MyApp {...props} />
+        </AuthProvider>
+      </ReactQueryClient>
     </ConfigProvider>
+
   )
 }

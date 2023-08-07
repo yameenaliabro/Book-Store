@@ -18,12 +18,15 @@ function DashboardSideBar() {
         {
             label: <Link href="/dashboard/products">Products</Link>,
             key: "dashboard/products"
-        }
-
+        },
+        {
+            label: <Link href="/dashboard/transation">Transation</Link>,
+            key: "/dashboard/checktransation"
+        },
     ]), [])
 
     return (
-        <Sider className='h-[90vh]'>
+        <Sider className=' bottom-0'>
             <Menu theme='dark' items={menuItems} />
         </Sider>
     )

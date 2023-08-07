@@ -3,12 +3,15 @@ import { Card, Form, Input, Button, Typography, message } from "antd"
 import { SignUpProps } from '@src/types'
 import useAuth from '@src/hooks/useAuth'
 import { useRouter } from 'next/router'
+import Link from 'next/link'
 
 const SignUpPage = () => {
     const [loading, setloading] = useState<boolean>(false)
     const { asPath, push } = useRouter()
     const { signup } = useAuth()
+
     const onFinish = async (props: SignUpProps) => {
+        console.log(props)
         console.log(props)
         try {
             setloading(true)
@@ -48,14 +51,6 @@ const SignUpPage = () => {
                         <Input type='email' placeholder='enter a email address...' />
                     </Form.Item>
                     <Form.Item
-                        name="image"
-                        label="profile"
-                        rules={[
-                            { required: true, message: "please enter a profile" }
-                        ]}>
-                        <Input type="file" placeholder='enter a profile...' />
-                    </Form.Item>
-                    <Form.Item
                         name="password"
                         label="password"
                         rules={[
@@ -66,6 +61,9 @@ const SignUpPage = () => {
                     </Form.Item>
                     <Form.Item>
                         <Button type="primary" htmlType='submit' block>Register</Button>
+                    </Form.Item>
+                    <Form.Item className='flex justify-center'>
+                        <Button type='primary' danger><Link href="/auth/login" >Already have a  account!</Link></Button>
                     </Form.Item>
                 </Form>
             </Card>

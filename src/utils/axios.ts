@@ -1,24 +1,28 @@
-import Axios from "axios"
-import { message } from "antd"
-const baseURL = "http://localhost:2000"
+import Axios from "axios";
+import { BASE_URL } from "@src/config"
+import { message } from "antd";
+import { useRouter } from "next/router";
 
 const axios = Axios.create({
-    baseURL: baseURL
+    baseURL: BASE_URL
 })
+
 
 axios.interceptors.response.use(
     (res) => res,
     (err) => {
-        const erroMessage = err.response.data.message || err.message
-        message.error(erroMessage)
-        Promise.reject(erroMessage)
+        const errorMessage = err.ree || err.message
+        message.error(errorMessage)
+        Promise.reject(errorMessage)
     }
 )
 
 export const setaxiostoken = (token: string) => {
-    axios.defaults.headers.Autharization = `bearer ${token}`
+    axios.defaults.headers.Authorization = `Bearer ${token}`
 }
 
-export const removeaxiostoken = () => {
-    axios.defaults.headers.Autharization = null
-} 
+export const removeAxiosToken = () => {
+    axios.defaults.headers.Authorization = null
+}
+
+export default axios

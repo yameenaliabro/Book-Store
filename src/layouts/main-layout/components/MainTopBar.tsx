@@ -5,7 +5,7 @@ const { Header } = Layout
 
 function MainTopBar() {
     return (
-        <Header>MainTopBar</Header>
+        <Header className='h-fll'>MainTopBar</Header>
     )
 }
 

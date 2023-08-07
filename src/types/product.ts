@@ -5,8 +5,10 @@ export interface IProduct {
     description: string;
     updatedAt: string;
     image: string,
-    price: number,
-    rating: number
+    rating: number,
+    purchaseprice: number,
+    sellprice: number
+
 }
 
 export type GetProductType = {
@@ -22,10 +24,15 @@ export type EditProductType = {
     rating?: number
 }
 
+export type GetProductDetailType = {
+    id?: string
+}
+
 export type CreateProductType = {
     title: string,
     description: string,
-    price: number,
+    purchaseprice: number,
+    sellprice: number,
     rating: number,
     image: string,
 }

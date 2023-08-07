@@ -11,7 +11,7 @@ const DashboardTopBar = () => {
     ]), [signout])
 
     return (
-        <Header className='flex justify-between h-full'>
+        <Header className='flex justify-between item-center'>
             <Typography.Title className='text-white'>Dashboard</Typography.Title>
             <Dropdown arrow placement="bottomRight" menu={{ items }} className='mt-4'>
                 <Avatar src="https://www.pngarts.com/files/6/User-Avatar-in-Suit-PNG.png" />

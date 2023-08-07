@@ -2,28 +2,30 @@
 @tailwind components;
 @tailwind utilities;
 
-html,body{
+html,
+body {
   width: 100%;
   height: 100%;
   padding: 0;
   margin: 0;
 }
 
-*{
+* {
   box-sizing: border-box;
 }
 
 
 
-#__next{
+#__next {
   height: 100%;
   width: 100%;
 }
-*{
-  word-wrap: break-word;
-  word-break: break-all;
+
+#__next>div {
+  height: 100%;
+  width: 100%;
 }
 
-.ant-btn-primary{
+.ant-btn-primary {
   background-color: #1677ff;
 }
