@@ -33,10 +33,10 @@ const SignUpPage = () => {
                 <Typography.Title className='flex justify-center mb-5'>Create Account</Typography.Title>
                 <Form
                     labelCol={{ span: 6 }}
-                    onFinish={onFinish}>
+                    onFinish={onFinish}
+                    className='w-[450px]'>
                     <Form.Item
                         name="username"
-                        label="username"
                         rules={[
                             { required: true, message: "please enter a name" }
                         ]}>
@@ -44,7 +44,6 @@ const SignUpPage = () => {
                     </Form.Item>
                     <Form.Item
                         name="email"
-                        label="email"
                         rules={[
                             { required: true, message: "please enter a email address!" }
                         ]}>
@@ -52,7 +51,6 @@ const SignUpPage = () => {
                     </Form.Item>
                     <Form.Item
                         name="password"
-                        label="password"
                         rules={[
                             { required: true, message: "please enter a password" },
                             { min: 6, message: "must be a six character!" }

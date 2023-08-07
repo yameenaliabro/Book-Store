@@ -50,7 +50,7 @@ const Dashboard = () => {
             key: "Customer_id",
             render: (_, record) => (
                 <Space>
-                    <p>{record.customer._id}</p>
+                    <p>{record._id}</p>
                 </Space>
             )
         },
@@ -60,9 +60,13 @@ const Dashboard = () => {
             key: "cutomer",
             render: (_, record) => (
                 <Space>
-                    <Avatar src={record.customer.image} />
-                    <p>{record.customer.fullname}</p><br /><br />
-                    <span>{record.customer.email}</span>
+                    <div className="flex items-center">
+                        <Link href={record.customer.image} target='_blank'><Avatar src={record.customer.image} size="large" /></Link>
+                        <div className="ml-4">
+                            <p className="text-lg font-semibold text-gray-600">{record.customer.fullname}</p>
+                            <p className="text-gray-500">{record.customer.email}</p>
+                        </div>
+                    </div>
                 </Space>
             )
         },
@@ -78,8 +82,8 @@ const Dashboard = () => {
             key: "item",
             render: (_, record) => (
                 <Space>
-                    <span>{record.purchasedProducts.map(item =>
-                        <span key={item.quantity}>{item.quantity}</span>)}
+                    <span>
+                        {record.purchasedProducts.reduce((total, item) => total + item.product.count, 0)}
                     </span>
                 </Space>
             )
@@ -90,9 +94,9 @@ const Dashboard = () => {
             key: "price",
             render: (_, record) => (
                 <Space>
-                    <span>{record.purchasedProducts.map(item =>
-                        <span key={item.product._id}>{item.product.purchaseprice + item.product.sellprice}</span>
-                    )}
+                    <span>
+                        {record.purchasedProducts.reduce((total, item) =>
+                            total + (item.product.sellprice + item.product.purchaseprice * item.product.count), 0)}
                     </span>
                 </Space>
             )
@@ -128,24 +132,23 @@ const Dashboard = () => {
                 columns={columns}
                 className='flex justify-center'
                 expandable={{
-                    expandRowByClick: true,
                     expandedRowRender: (record) => (
-                        <Card className='flex' hoverable>
-                            <p>{record.purchasedProducts.map(item => (
-                                <Divider key={item.product._id}>
-                                    <div key={item.product._id} className='flex  justify-between'>
-                                        <Link href={item.product.image} target='_blank'>
-                                            <Avatar src={item.product.image} className='m-2' />
-                                        </Link>
-                                        <div className='flex flex-col m-2'>
-                                            <p>{item.product.title}</p>
-                                            <p>{item.product.description}</p>
+                        <div className='flex flex-wrap'>
+                            {record.purchasedProducts.map(item => (
+                                <Card key={item.product._id} className='m-2' hoverable>
+                                    <Link href={item.product.image} target='_blank'>
+                                        <Avatar src={item.product.image} />
+                                    </Link>
+                                    <div className='flex flex-col'>
+                                        <p style={{ fontSize: '16px', fontWeight: 'bold' }}>{item.product.title}</p>
+                                        <p>{item.product.description}</p>
+                                        <div className='flex justify-between'>
+                                            <span className='text-[16px] text-green-500'>{item.product.count}</span>
                                         </div>
                                     </div>
-                                </Divider>
+                                </Card>
                             ))}
-                            </p>
-                        </Card>
+                        </div>
                     )
                 }}
             />

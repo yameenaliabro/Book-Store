@@ -47,15 +47,6 @@ const Transtion = () => {
                                     <Select className='w-[300px]' options={products?.map((product: IProduct) => ({ label: product.title, value: product._id }))}
                                         placeholder="please select a product"></Select>
                                 </Form.Item>
-                                <Form.Item
-                                    {...restField}
-                                    name={[name, 'quantity']}
-                                    rules={[
-                                        { required: true, message: "please enter qunatity!" }
-                                    ]}
-                                >
-                                    <Input type="number" placeholder="Enter quantity" />
-                                </Form.Item>
                                 <MinusCircleOutlined onClick={() => remove(name)} />
                             </Space>
                         ))}

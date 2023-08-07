@@ -1,9 +1,7 @@
 export interface createtransationType {
     customer: string,
     purchasedProducts: [{
-        price: number,
         product: string,
-        quantity: string
     }],
     date: Date
 }
@@ -19,6 +17,7 @@ export interface ITransation {
     purchasedProducts: {
         product: {
             _id: string;
+            count: number;
             title: string;
             description: string;
             image: string,
