@@ -5,11 +5,9 @@ import { ColumnsType } from 'antd/es/table'
 import React, { useCallback, useState } from 'react'
 import { PlusOutlined } from '@ant-design/icons'
 import Link from 'next/link'
-import EditModal from '../createtransation/edit-modal'
 
 const Dashboard = () => {
-    const [editModalVisible, setEditModalVisible] = useState<boolean>(false);
-    const [selectedRecord, setSelectedRecord] = useState<any>();
+    const [expandedRowKey, setExpandedRowKey] = useState<string | null>(null);
     const { data, refetch } = UseGeTransation()
     const { mutateAsync: onEdit } = UseUpdateTransation()
     const { mutateAsync: OnDelete } = UseDelteTransation()
@@ -24,37 +22,13 @@ const Dashboard = () => {
         })
     }, [OnDelete, refetch])
 
-    const handleEditClick = useCallback((record: ITransation) => {
-        setSelectedRecord(record);
-        setEditModalVisible(true);
-    }, []);
-
-    const OnEditTransation = useCallback(async (v: ITransation) => {
-        setEditModalVisible(true);
-        await onEdit(selectedRecord, {
-            onSuccess: () => {
-                message.success("your a sucessfull edit Transation"),
-                    refetch()
-            }
-        })
-    }, [onEdit, refetch, selectedRecord])
-
-    const handleEditCancel = useCallback(() => {
-        setSelectedRecord(null);
-        setEditModalVisible(false);
-    }, []);
-
     const columns: ColumnsType<ITransation> = [
         {
             title: 'Order',
             key: "Customer_id",
-            render: (_, record) => (
-                <Space>
-                    <p>{record._id}</p>
-                </Space>
-            )
+            dataIndex: "_id",
+            render: (_, record) => `#${record._id.substring(0, 5)}`
         },
-        Table.EXPAND_COLUMN,
         {
             title: 'Customer',
             key: "cutomer",
@@ -70,13 +44,11 @@ const Dashboard = () => {
                 </Space>
             )
         },
-        Table.EXPAND_COLUMN,
         {
             title: 'Date',
             dataIndex: 'date',
             key: 'date',
         },
-        Table.EXPAND_COLUMN,
         {
             title: 'Items',
             key: "item",
@@ -88,7 +60,6 @@ const Dashboard = () => {
                 </Space>
             )
         },
-        Table.EXPAND_COLUMN,
         {
             title: 'Price',
             key: "price",
@@ -101,7 +72,6 @@ const Dashboard = () => {
                 </Space>
             )
         },
-        Table.EXPAND_COLUMN,
         {
             title: 'Action',
             key: "price",
@@ -118,8 +88,15 @@ const Dashboard = () => {
                 </Space>
             )
         },
-        Table.EXPAND_COLUMN,
     ];
+
+    const handleRowExpand = (record: ITransation) => {
+        if (expandedRowKey === record._id) {
+            setExpandedRowKey(null);
+        } else {
+            setExpandedRowKey(record._id);
+        }
+    };
 
     return (
         <div>
@@ -132,6 +109,7 @@ const Dashboard = () => {
                 columns={columns}
                 className='flex justify-center'
                 expandable={{
+                    expandedRowKeys: expandedRowKey ? [expandedRowKey] : [],
                     expandedRowRender: (record) => (
                         <div className='flex flex-wrap'>
                             {record.purchasedProducts.map(item => (
@@ -149,16 +127,10 @@ const Dashboard = () => {
                                 </Card>
                             ))}
                         </div>
-                    )
+                    ),
+                    expandIconColumnIndex: -1,
                 }}
             />
-
-            <EditModal
-                onCancel={handleEditCancel}
-                onSave={OnEditTransation}
-                record={selectedRecord}
-                visible={editModalVisible} />
-
             <Link href="/dashboard/createtransation">
                 <FloatButton icon={<PlusOutlined />} type='primary' />
             </Link>
