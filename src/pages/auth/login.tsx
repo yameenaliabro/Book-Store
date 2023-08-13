@@ -1,3 +1,4 @@
+import { MailOutlined, UserOutlined } from '@ant-design/icons'
 import useAuth from '@src/hooks/useAuth'
 import { LoginProps } from '@src/types'
 import { Card, Form, Button, Input, Typography, message } from 'antd'
@@ -26,36 +27,34 @@ const LoginPage = () => {
     }
 
     return (
-        <div className='flex justify-center items-center h-[90vh]'>
+        <div className='flex justify-center items-center'>
             <Card className='flex flex-col items-center'>
-                <Typography.Title className='flex justify-center'>Login Account</Typography.Title>
+                <Typography.Title className='flex justify-center mb-10'>Login Account</Typography.Title>
                 <Form
                     labelCol={{ span: 6 }}
                     onFinish={onFinish}
                     disabled={loading}
-                    className='w-[450px] flex justify-center flex-col'
+                    className='w-[400px] flex justify-center flex-col'
                 >
                     <Form.Item
                         name="email"
-                        label="email"
                         rules={[
                             { required: true, message: 'please enter a email adress!' }
                         ]}>
-                        <Input type='email' placeholder='enter a email address...' />
+                        <Input type='email' placeholder='enter a email address...' prefix={<MailOutlined />} />
                     </Form.Item>
                     <Form.Item
                         name="password"
-                        label="password"
                         rules={[
                             { required: true, message: "please enter a password" }
                         ]}>
                         <Input.Password type='' placeholder='enter a password...' />
                     </Form.Item>
-                    <Form.Item className='flex justify-center'>
-                        <Button type='primary' htmlType='submit'>Login</Button>
+                    <Form.Item>
+                        <Button type='primary' htmlType='submit' block>Login</Button>
                     </Form.Item>
                     <Form.Item className='flex justify-center'>
-                        <Button type='primary' danger><Link href="/auth/signup" >Create a new Account!</Link></Button>
+                        <Link href="/auth/signup" >Create a new Account?<Button type='link' className='p-0 m-0'>Signup</Button></Link>
                     </Form.Item>
                 </Form>
             </Card>

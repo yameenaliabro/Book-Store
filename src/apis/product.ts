@@ -25,6 +25,6 @@ export const UseDeleteProduct = () => useMutation<void, string, DeleteProductTyp
 })
 
 export const UseEditProduct = () => useMutation<void, string, EditProductType>({
-    mutationFn: async ({ id, ...rest }) => await axios.patch("/products", rest, { params: { id } }),
+    mutationFn: async ({ _id, ...rest }) => await axios.patch("/products", rest, { params: { _id } }),
 
 })

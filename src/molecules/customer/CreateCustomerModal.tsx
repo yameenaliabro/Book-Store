@@ -3,7 +3,7 @@ import { CreateCustomerProps, ICustomer, UpdateCustomerType } from '@src/types'
 import { Card, Form, Input, Modal } from 'antd'
 import { getDownloadURL, ref, uploadBytes } from 'firebase/storage'
 import { useState, Ref, useCallback, useImperativeHandle, forwardRef } from 'react'
-import UploadImge from '../product/uploadimage'
+import UploadImge from '../uploadImage/uploadimage'
 
 type CreateCustomerModalProps = {
     createloading: boolean,

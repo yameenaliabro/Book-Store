@@ -100,14 +100,14 @@ const Dashboard = () => {
 
     return (
         <div>
-            <div className='flex justify-center mb-10 mt-2'>
+            <div className='flex justify-center'>
                 <Typography.Title
                     className='h-full'>Transation Dashboard</Typography.Title>
             </div>
             <Table
                 dataSource={data}
                 columns={columns}
-                className='flex justify-center'
+                className='p-10'
                 expandable={{
                     expandedRowKeys: expandedRowKey ? [expandedRowKey] : [],
                     expandedRowRender: (record) => (

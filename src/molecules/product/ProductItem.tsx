@@ -1,21 +1,29 @@
-import { DeleteOutlined, EditOutlined, ShoppingCartOutlined } from '@ant-design/icons'
-import { IProduct } from '@src/types'
-import { Avatar, Button, Card, Divider, Image, Popconfirm, Rate, Space, Typography } from 'antd'
-import Link from 'next/link'
-import React from 'react'
-import { toast, ToastContainer } from 'react-toastify';
+import { DeleteOutlined, EditOutlined } from '@ant-design/icons'
+import { UseEditProduct } from '@src/apis'
+import Editproduct, { EditProductModalRefProps } from '@src/pages/dashboard/editproduct'
+import { EditProductType, IProduct } from '@src/types'
+import { Button, Card, Image, Popconfirm, Rate, Space, message } from 'antd'
+import { useRef, useCallback } from "react"
 
 type ProductItemProps = {
     item: IProduct,
-    onEdit: (blog: IProduct) => void,
-    onDelete: (id: string) => void
-    OnAddCart: (id: string) => void
+    onDelete: (id: string) => void,
 }
 
 const ProductItem = (props: ProductItemProps) => {
-    const { item, onDelete, onEdit, OnAddCart } = props
+    const { mutateAsync: onEdit, isLoading } = UseEditProduct()
+    const { item, onDelete } = props
     const { _id, description, image, purchaseprice, sellprice, rating, title, } = item
     const { Meta } = Card
+    const editProductModalRef = useRef<EditProductModalRefProps>(null);
+
+    const handleeditproduct = useCallback(async (value: EditProductType) => {
+        await onEdit(value, {
+            onSuccess: () => {
+                message.success("product edit suceessfully!")
+            }
+        })
+    }, [onEdit])
 
     return (
         <div className="flex  flex-row  p-10 h-full  ">
@@ -32,8 +40,8 @@ const ProductItem = (props: ProductItemProps) => {
                     <Button
                         key={_id}
                         className="bg-yellow-400 hover:bg-yellow-500 text-white font-bold rounded"
-                        onClick={() => onEdit(item)}
                         icon={<EditOutlined />}
+                        onClick={() => editProductModalRef.current?.edit(item)}
                     >
                         Edit
                     </Button>,
@@ -71,37 +79,16 @@ const ProductItem = (props: ProductItemProps) => {
                 <div className="pt-2">
                     <Rate allowHalf defaultValue={rating} disabled />
                 </div>
-            </Card >
+            </Card>
+            <Editproduct
+                createloading={false}
+                onEditProduct={handleeditproduct}
+                productToEdit={item}
+                key={item._id}
+                ref={editProductModalRef}
+            />
         </div >
     )
 }
 
 export default ProductItem
-{/* <Form.Item
-                    name="title"
-                    rules={[
-                        { required: true, message: "please enter a Title! " }
-                    ]}>
-
-                </Form.Item>
-                <Form.Item
-                    rules={[
-                        { required: true, message: "please enter a Description! " }
-                    ]}>
-                    <Input type="text" placeholder='enter a description' />
-                </Form.Item>
-                <Form.Item
-                    rules={[
-                        { required: true, message: "please enter a Quantity ! " }
-                    ]}>
-                    <Input type='number' placeholder='enter a quantity' />
-                </Form.Item>
-                <Form.Item
-                    rules={[
-                        { required: true, message: "please enter a Price " }
-                    ]}>
-                    <Input type='number' placeholder='enter a price' />
-                </Form.Item>
-                <Form.Item>
-                    <Input type='number' placeholder='total price' />
-                </Form.Item> */}
