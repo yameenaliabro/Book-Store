@@ -1,5 +1,6 @@
-import { DeleteOutlined, EditOutlined } from '@ant-design/icons'
+import { DeleteOutlined, EditOutlined, ShoppingCartOutlined } from '@ant-design/icons'
 import { UseEditProduct } from '@src/apis'
+import { useCart } from '@src/context'
 import Editproduct, { EditProductModalRefProps } from '@src/pages/dashboard/editproduct'
 import { EditProductType, IProduct } from '@src/types'
 import { Button, Card, Image, Popconfirm, Rate, Space, message } from 'antd'
@@ -16,6 +17,7 @@ const ProductItem = (props: ProductItemProps) => {
     const { _id, description, image, purchaseprice, sellprice, rating, title, } = item
     const { Meta } = Card
     const editProductModalRef = useRef<EditProductModalRefProps>(null);
+    const { addToCart } = useCart()
 
     const handleeditproduct = useCallback(async (value: EditProductType) => {
         await onEdit(value, {
@@ -79,6 +81,7 @@ const ProductItem = (props: ProductItemProps) => {
                 <div className="pt-2">
                     <Rate allowHalf defaultValue={rating} disabled />
                 </div>
+                <Button type='primary' icon={<ShoppingCartOutlined />} onClick={() => addToCart(item)}>AddToCart</Button>
             </Card>
             <Editproduct
                 createloading={false}

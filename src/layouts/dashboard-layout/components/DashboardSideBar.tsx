@@ -24,6 +24,10 @@ function DashboardSideBar() {
             label: <Link href="/dashboard/transation">Transation</Link>, icon: <UnorderedListOutlined />,
             key: "/dashboard/checktransation"
         },
+        {
+            label: <Link href="/dashboard/cart"></Link>, icon: <UnorderedListOutlined />,
+            key: "/dashboard/cart"
+        },
     ]), [])
 
     return (
