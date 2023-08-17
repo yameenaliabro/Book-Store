@@ -25,7 +25,7 @@ function DashboardSideBar() {
             key: "/dashboard/checktransation"
         },
         {
-            label: <Link href="/dashboard/cart"></Link>, icon: <UnorderedListOutlined />,
+            label: <Link href="/dashboard/cart">Cart</Link>, icon: <ShoppingCartOutlined />,
             key: "/dashboard/cart"
         },
     ]), [])

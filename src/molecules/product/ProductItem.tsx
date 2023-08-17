@@ -1,6 +1,6 @@
 import { DeleteOutlined, EditOutlined, ShoppingCartOutlined } from '@ant-design/icons'
 import { UseEditProduct } from '@src/apis'
-import { useCart } from '@src/context'
+import { useCart } from '@src/hooks/useCart'
 import Editproduct, { EditProductModalRefProps } from '@src/pages/dashboard/editproduct'
 import { EditProductType, IProduct } from '@src/types'
 import { Button, Card, Image, Popconfirm, Rate, Space, message } from 'antd'
