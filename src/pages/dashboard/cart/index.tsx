@@ -1,31 +1,29 @@
+import React from 'react';
+import { List, Image, Typography } from 'antd';
+import { ShoppingCartOutlined } from '@ant-design/icons';
 import { useCart } from '@src/hooks/useCart';
-import { Button, Card, Empty, Image } from 'antd';
-import React from 'react'
 
+const CartUI: React.FC = () => {
+    const { cart: cartItems } = useCart()
 
-const CartPage = () => {
-    const { addToCart, cart, removeFromCart } = useCart();
     return (
-        <div>
-            {cart.length == 0 ? (
-                <Empty description="this is data not availalable" />
-            ) : (
-                cart.map(item => (
-                    <Card
-                        cover={<Image alt='product image' src={item.product.image} />}
-                        key={item.product._id}
-                        hoverable>
-                        <p>{item.product.description}</p>
-                        <p>{item.product.title}</p>
-                        <p>{item.product.purchaseprice}</p>
-                        <p>{item.product.rating}</p>
-                        <span>{item.quantity}</span>
-                        <Button type='primary' danger onClick={() => removeFromCart(item.product._id)}>Delete</Button>
-
-                    </Card>
-                ))
+        <List
+            itemLayout="vertical"
+            dataSource={cartItems}
+            renderItem={item => (
+                <List.Item
+                    key={item.product._id}
+                    extra={<Image width={100} src={item.product.image} alt={item.product.title} />}
+                >
+                    <List.Item.Meta
+                        title={item.product.title}
+                        description={`Price: $${item.product.purchaseprice.toFixed(2)}`}
+                    />
+                    <Typography.Text>Quantity: {item.quantity}</Typography.Text>
+                </List.Item>
             )}
-        </div>
-    )
-}
-export default CartPage
+        />
+    );
+};
+
+export default CartUI;

@@ -1,12 +1,13 @@
 import { CarOutlined, HistoryOutlined, HomeOutlined, ShoppingCartOutlined, UnorderedListOutlined, UserOutlined } from '@ant-design/icons'
-import { Layout, Menu, MenuProps, } from 'antd'
+import { useCart } from '@src/hooks/useCart'
+import { Avatar, Badge, Layout, Menu, MenuProps, } from 'antd'
 import Link from 'next/link'
 import React, { useMemo } from 'react'
 
 const { Sider } = Layout
 
 function DashboardSideBar() {
-
+    const { cart } = useCart()
     const menuItems: MenuProps["items"] = useMemo(() => ([
         {
             label: <Link href="/dashboard">Dashboard</Link>, icon: <HomeOutlined />,
@@ -25,10 +26,15 @@ function DashboardSideBar() {
             key: "/dashboard/checktransation"
         },
         {
-            label: <Link href="/dashboard/cart">Cart</Link>, icon: <ShoppingCartOutlined />,
+            label: <Link href="/dashboard/cart">
+                <Badge count={cart.map(item => item.quantity)} showZero>
+                    <ShoppingCartOutlined style={{ fontSize: '24px', marginBottom: '16px' }} />
+                </Badge>
+                Cart
+            </Link>,
             key: "/dashboard/cart"
         },
-    ]), [])
+    ]), [cart])
 
     return (
         <Sider className=' bottom-0'>
