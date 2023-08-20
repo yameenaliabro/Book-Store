@@ -26,7 +26,7 @@ const CartUI = () => {
                             className='mr-2'
                         >
                         </Button>
-                        <Typography.Text>{item.quantity}</Typography.Text>
+                        <Typography.Text>Quantity: {item.quantity}</Typography.Text>
                         <Button
                             type='primary'
                             onClick={() => incrementQuantity(item.product._id)}
@@ -36,9 +36,8 @@ const CartUI = () => {
                         </Button>
                         <List.Item.Meta
                             title={item.product.title}
-                            description={`Price: $${item.product.purchaseprice.toFixed(2)}`}
+                            description={`Price $${(item.product.sellprice + item.product.purchaseprice * item.quantity).toFixed(2)}`}
                         />
-                        <Typography.Text>Quantity: {item.quantity}</Typography.Text>
                         <Popconfirm
                             title="are you sure you want to delete this product!"
                             okText="ok"
