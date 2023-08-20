@@ -1,10 +1,10 @@
 import React from 'react';
-import { List, Image, Typography } from 'antd';
-import { ShoppingCartOutlined } from '@ant-design/icons';
+import { List, Image, Typography, Button, Popconfirm } from 'antd';
+import { DeleteOutlined, ShoppingCartOutlined } from '@ant-design/icons';
 import { useCart } from '@src/hooks/useCart';
 
 const CartUI: React.FC = () => {
-    const { cart: cartItems } = useCart()
+    const { cart: cartItems, removeFromCart } = useCart()
 
     return (
         <List
@@ -20,6 +20,14 @@ const CartUI: React.FC = () => {
                         description={`Price: $${item.product.purchaseprice.toFixed(2)}`}
                     />
                     <Typography.Text>Quantity: {item.quantity}</Typography.Text>
+                    <Popconfirm
+                        title="are you sure you want to delete this product!"
+                        okText="ok"
+                        cancelText="cancel"
+                        onConfirm={() => removeFromCart(item.product._id)}
+                    >
+                        <Button type="primary" danger><DeleteOutlined /></Button>
+                    </Popconfirm>
                 </List.Item>
             )}
         />

@@ -26,18 +26,20 @@ function DashboardSideBar() {
             key: "/dashboard/checktransation"
         },
         {
-            label: <Link href="/dashboard/cart">
-                <Badge count={cart.map(item => item.quantity)} showZero>
-                    <ShoppingCartOutlined style={{ fontSize: '24px', marginBottom: '16px' }} />
-                </Badge>
-                Cart
-            </Link>,
-            key: "/dashboard/cart"
+            label: (
+                <Link href="/dashboard/cart">
+                    <Badge count={cart.length} showZero>
+                        <ShoppingCartOutlined style={{ fontSize: '24px', marginBottom: '16px' }} />
+                    </Badge>
+                    Cart
+                </Link>
+            ),
+            key: "dashboard/cart"
         },
     ]), [cart])
 
     return (
-        <Sider className=' bottom-0'>
+        <Sider className=' bottom-0 flex justify-center gap-x1-0'>
             <Menu theme='dark' items={menuItems} />
         </Sider>
     )

@@ -55,7 +55,7 @@ const Dashboard = () => {
             render: (_, record) => (
                 <Space>
                     <span>
-                        {record.purchasedProducts.reduce((total, item) => total + item.product.count, 0)}
+                        {record.purchasedProducts.reduce((total, item) => total + (item.product?.count || 0), 0)}
                     </span>
                 </Space>
             )
@@ -67,7 +67,7 @@ const Dashboard = () => {
                 <Space>
                     <span>
                         {record.purchasedProducts.reduce((total, item) =>
-                            total + (item.product.sellprice + item.product.purchaseprice * item.product.count), 0)}
+                            total + (item.product?.sellprice + item.product?.purchaseprice * item.product?.count || 0), 0)}
                     </span>
                 </Space>
             )
